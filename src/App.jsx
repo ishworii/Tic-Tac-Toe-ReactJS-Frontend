@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState } from 'react';
 import GameBoard from './components/GameBoard';
 import PlayerSelection from './components/PlayerSelection';
@@ -7,15 +6,12 @@ import './styles/App.css';
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [firstPlayer, setFirstPlayer] = useState(null);
+  const [boardSize, setBoardSize] = useState(3);
 
-  const handleGameStart = (player) => {
+  const handleGameStart = (player, size) => {
     setFirstPlayer(player);
+    setBoardSize(size);
     setGameStarted(true);
-  };
-
-  const handleRestart = () => {
-    setGameStarted(false);
-    setFirstPlayer(null);
   };
 
   return (
@@ -26,7 +22,8 @@ function App() {
       ) : (
         <GameBoard 
           firstPlayer={firstPlayer} 
-          onRestart={handleRestart}
+          boardSize={boardSize}
+          onRestart={() => setGameStarted(false)}
         />
       )}
     </div>
