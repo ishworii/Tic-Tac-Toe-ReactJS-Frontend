@@ -1,0 +1,200 @@
+/* src/styles/GameBoard.css */
+.game-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 1rem;
+  animation: fadeIn 0.5s ease-in;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.status {
+  text-align: center;
+  color: white;
+  font-size: 1.5rem;
+  height: 2rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.board {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  gap: 10px;
+  margin: 2rem auto;
+  width: 320px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 1rem;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #1e3c72;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cell:not(:disabled):hover {
+  transform: scale(1.05);
+  background: white;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.cell.taken {
+  cursor: not-allowed;
+}
+
+.cell.winning {
+  animation: winPulse 1.5s infinite;
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.cell:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.game-button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.game-button.restart {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4a 100%);
+  color: #1e3c72;
+}
+
+.game-button.change-player {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+  color: white;
+}
+
+.game-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.game-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.thinking {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+@keyframes winPulse {
+  0% { 
+    transform: scale(1);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  }
+  50% { 
+    transform: scale(1.1);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  }
+  100% { 
+    transform: scale(1);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  }
+}
+
+@keyframes showLine {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .board {
+    width: 280px;
+    grid-template-columns: repeat(3, 85px);
+    gap: 8px;
+  }
+
+  .cell {
+    width: 85px;
+    height: 85px;
+    font-size: 2rem;
+  }
+
+  .winning-line.diagonal {
+    width: 380px;
+    left: -50px;
+  }
+
+  .controls {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .game-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .cell {
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  .game-button.restart {
+    background: linear-gradient(135deg, #ffd700 0%, #ffc107 100%);
+  }
+}
